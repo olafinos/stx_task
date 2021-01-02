@@ -1,5 +1,6 @@
+from .google_books_api import add_books_using_api
 from .models import Book
-from .forms import BookSearchForm, BookAddForm
+from .forms import BookSearchForm, BookAddForm, GoogleBooksAPIForm
 from typing import Dict
 import datetime
 from django.http import HttpRequest, HttpResponse
@@ -55,3 +56,18 @@ class AddBook(View):
             return render(request, "add_book.html", {"form": form})
         messages.add_message(request, messages.SUCCESS, "Book added successfully")
         return redirect('books_detail', pk=book.pk)
+
+class AddBookGoogleAPI(View):
+
+    def get(self, request: HttpRequest, format=None) -> HttpResponse:
+        form = GoogleBooksAPIForm()
+        return render(request, "add_books_using_api.html", {"form": form})
+
+    def post(self, request: HttpRequest, format=None) -> HttpResponse:
+        form = GoogleBooksAPIForm(request.POST)
+        if form.is_valid():
+            keywords = form.cleaned_data
+            added_books = add_books_using_api(keywords)
+            messages.add_message(request, messages.SUCCESS, f"Number of books added: {added_books}")
+        return render(request, "add_books_using_api.html", {"form": form})
+

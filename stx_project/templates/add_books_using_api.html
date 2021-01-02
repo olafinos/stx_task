@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}Add book using Google Book API{% endblock %}
+{% block content %}
+<h2>Add books using keywords</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {% if form.errors %}
+    <!-- Error messaging -->
+    <br>
+    <div id="errors">
+        <div class="inner">
+            <strong>
+                <p>There were some errors in the information you entered. Please correct the following:</p>
+                <ul>
+                    {% for field in form %}
+                    {% if field.errors %}
+                    <li>{{ field.label }}:
+                        <ul>
+                            {% for error in field.errors %}
+                            <li>{{ error|striptags }}</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+            </strong>
+        </div>
+    </div>
+    <br>
+    <!-- /Error messaging -->
+    {% endif %}
+    <div class="form-group">
+        <label for="q">General search: </label>
+        <input type="text" name="q" class="form-control" id="q" placeholder="General search">
+        <label for="title">Title: </label>
+        <input type="text" name="title" class="form-control" id="title" placeholder="Title">
+        <label for="author">Author: </label>
+        <input type="text" name="author" class="form-control" id="author" placeholder="Author">
+        <label for="publisher">Publisher: </label>
+        <input type="text" name="publisher" class="form-control" id="publisher" placeholder="Publisher">
+        <label for="subject">Subject: </label>
+        <input type="text" name="subject" class="form-control" id="subject" placeholder="Subject">
+        <label for="isbn">ISBN number: </label>
+        <input type="number" name="isbn" class="form-control" id="isbn" placeholder="ISBN number">
+        <label for="lccn">LCCN number: </label>
+        <input type="number" name="lccn" class="form-control" id="lccn" placeholder="LCCN number">
+        <label for="oclc">OCLC number: </label>
+        <input type="number" name="oclc" class="form-control" id="oclc" placeholder="OCLC number">
+
+    </div>
+    <button type="submit" class="btn btn-dark">Submit</button>
+</form>
+{% endblock %}
