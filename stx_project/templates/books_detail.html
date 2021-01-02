@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}{{ object.title }}{% endblock %}
+{% block content %}
+<h2>Book detail</h2>
+    <div class="container p-3 my-3" style="border:2px solid #38220f;">
+        <div class="media">
+   <div class="media-body">
+        <h4 class="mt-0">{{ object.title }}</h4>
+            <h6 class="mt-0"><strong>ISBN: </strong>{{ object.isbn_number }}</h6>
+            <h6 class="mt-0"><strong>Author: </strong>{{ object.author }}</h6>
+            <h6 class="mt-0"><strong>Publication date: </strong>{{ object.publication_date }}</h6>
+            <h6 class="mt-0"><strong>Publication language: </strong>{{ object.publication_language }}</h6>
+            <h6 class="mt-0"><strong>Number of pages: </strong>{{ object.number_of_pages }}</h6>
+            <h6 class="mt-0"><strong>Link to cover: </strong>{{ object.cover_link }}</h6>
+  </div>
+    </div>
+    </div>
+{% endblock %}

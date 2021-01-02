@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Books List{% endblock %}
+{% block content %}
+<h2>Books List</h2>
+<br>
+<form action="{% url 'books_list' %}" method="get">
+  <input name="title" type="text" placeholder="Title">
+    <input name="author" type="text" placeholder="Author">
+    <input name="publication_language" type="text" placeholder="Publication Language">
+    <input name="publication_date_start" placeholder="Publication start date" class="textbox-n" type="text" onfocus="(this.type='date')">
+    <input name="publication_date_end" placeholder="Publication end date" class="textbox-n" type="text" onfocus="(this.type='date')">
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+{% for book in object_list %}
+<div class="container p-3 my-3" style="border:2px solid #38220f;">
+    <div class="media">
+        <div class="media-body">
+            <h4 class="mt-0"><a href="{% url 'books_detail' book.pk %}" class="text-muted">{{ book.title }}</a></h4>
+            <h6 class="mt-0"><strong>ISBN: </strong>{{ book.isbn_number }}</h6>
+            <h6 class="mt-0"><strong>Author: </strong>{{ book.author }}</h6>
+            <h6 class="mt-0"><strong>Publication date: </strong>{{ book.publication_date }}</h6>
+            <h6 class="mt-0"><strong>Publication language: </strong>{{ book.publication_language }}</h6>
+            <h6 class="mt-0"><strong>Number of pages: </strong>{{ book.number_of_pages }}</h6>
+            <h6 class="mt-0"><strong>Link to cover: </strong>{{ book.cover_link }}</h6>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
