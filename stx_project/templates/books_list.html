@@ -5,11 +5,13 @@
 <h2>Books List</h2>
 <br>
 <form action="{% url 'books_list' %}" method="get">
-  <input name="title" type="text" placeholder="Title">
+    <input name="title" type="text" placeholder="Title">
     <input name="author" type="text" placeholder="Author">
     <input name="publication_language" type="text" placeholder="Publication Language">
-    <input name="publication_date_start" placeholder="Publication start date" class="textbox-n" type="text" onfocus="(this.type='date')">
-    <input name="publication_date_end" placeholder="Publication end date" class="textbox-n" type="text" onfocus="(this.type='date')">
+    <input name="publication_date_start" placeholder="Publication start date" class="textbox-n" type="text"
+           onfocus="(this.type='date')">
+    <input name="publication_date_end" placeholder="Publication end date" class="textbox-n" type="text"
+           onfocus="(this.type='date')">
     <button type="submit" class="btn btn-primary">Search</button>
 </form>
 
@@ -23,7 +25,8 @@
             <h6 class="mt-0"><strong>Publication date: </strong>{{ book.publication_date }}</h6>
             <h6 class="mt-0"><strong>Publication language: </strong>{{ book.publication_language }}</h6>
             <h6 class="mt-0"><strong>Number of pages: </strong>{{ book.number_of_pages }}</h6>
-            <h6 class="mt-0"><strong>Link to cover: </strong>{{ book.cover_link }}</h6>
+            <h6 class="mt-0"><strong>Link to cover: </strong><a href={{ book.cover_link }}>{{ book.cover_link }}</a>
+            </h6>
         </div>
     </div>
 </div>

@@ -1,7 +1,10 @@
 from .models import Book
-from .forms import BookSearchForm
+from .forms import BookSearchForm, BookAddForm
+from typing import Dict
 import datetime
-from django.shortcuts import render
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.views.generic import View, ListView, DetailView
 from django.db.models import Q
 
@@ -20,7 +23,7 @@ class BooksList(ListView):
             return object_list
         return Book.objects.all()
 
-    def _create_filter_object(self, form_data):
+    def _create_filter_object(self, form_data: Dict) -> Q:
         filter_object = Q(title__icontains=form_data["title"])
         filter_object &= Q(author__icontains=form_data["author"])
         filter_object &= Q(
@@ -37,3 +40,18 @@ class BooksList(ListView):
 class BookDetail(DetailView):
     model = Book
     template_name = "books_detail.html"
+
+class AddBook(View):
+
+    def get(self, request: HttpRequest, format=None) -> HttpResponse:
+        form = BookAddForm()
+        return render(request, "add_book.html", {"form": form})
+
+    def post(self, request: HttpRequest, format=None) -> HttpResponse:
+        form = BookAddForm(request.POST)
+        if form.is_valid():
+            book = form.save()
+        else:
+            return render(request, "add_book.html", {"form": form})
+        messages.add_message(request, messages.SUCCESS, "Book added successfully")
+        return redirect('books_detail', pk=book.pk)
