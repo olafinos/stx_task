@@ -33,21 +33,21 @@
     {% endif %}
     <div class="form-group">
         <label for="q">General search: </label>
-        <input type="text" name="q" class="form-control" id="q" placeholder="General search">
+        <input type="text" name="q" value="{{ form.q.value|default_if_none:'' }}" class="form-control" id="q" placeholder="General search">
         <label for="title">Title: </label>
-        <input type="text" name="title" class="form-control" id="title" placeholder="Title">
+        <input type="text" name="intitle" value="{{ form.intitle.value|default_if_none:'' }}" class="form-control" id="title" placeholder="Title">
         <label for="author">Author: </label>
-        <input type="text" name="author" class="form-control" id="author" placeholder="Author">
+        <input type="text" name="inauthor" value="{{ form.inauthor.value|default_if_none:'' }}" class="form-control" id="author" placeholder="Author">
         <label for="publisher">Publisher: </label>
-        <input type="text" name="publisher" class="form-control" id="publisher" placeholder="Publisher">
+        <input type="text" name="inpublisher" value="{{ form.inpublisher.value|default_if_none:'' }}" class="form-control" id="publisher" placeholder="Publisher">
         <label for="subject">Subject: </label>
-        <input type="text" name="subject" class="form-control" id="subject" placeholder="Subject">
+        <input type="text" name="subject" value="{{ form.subject.value|default_if_none:'' }}" class="form-control" id="subject" placeholder="Subject">
         <label for="isbn">ISBN number: </label>
-        <input type="number" name="isbn" class="form-control" id="isbn" placeholder="ISBN number">
+        <input type="number" name="isbn" value="{{ form.isbn.value }}" class="form-control" id="isbn" placeholder="ISBN number">
         <label for="lccn">LCCN number: </label>
-        <input type="number" name="lccn" class="form-control" id="lccn" placeholder="LCCN number">
+        <input type="number" name="lccn" value="{{ form.lccn.value }}" class="form-control" id="lccn" placeholder="LCCN number">
         <label for="oclc">OCLC number: </label>
-        <input type="number" name="oclc" class="form-control" id="oclc" placeholder="OCLC number">
+        <input type="number" name="oclc" value="{{ form.oclc.value }}" class="form-control" id="oclc" placeholder="OCLC number">
 
     </div>
     <button type="submit" class="btn btn-dark">Submit</button>

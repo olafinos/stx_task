@@ -4,6 +4,7 @@ from uuid import uuid4
 
 
 class Book(models.Model):
+    # TODO Add null fields
     id = models.UUIDField(primary_key=True, default=uuid4)
     isbn_number = models.IntegerField(unique=True)
     title = models.CharField(max_length=150)
