@@ -3,6 +3,9 @@
 {% block content %}
 <h2>Book detail</h2>
 <div class="container p-3 my-3" style="border:2px solid #38220f;">
+    <a href="{% url 'edit_book' object.pk %}" class='btn btn-dark float-right'>
+        Edit book
+          </a>
     <div class="media">
         <div class="media-body">
             <h4 class="mt-0">{{ object.title }}</h4>

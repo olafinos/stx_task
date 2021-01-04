@@ -9,14 +9,23 @@ class BookSearchForm(forms.Form):
     publication_date_end = forms.DateField(required=False)
     publication_language = forms.CharField(max_length=150, required=False)
 
-class BookAddForm(forms.ModelForm):
 
+class BookAddForm(forms.ModelForm):
     class Meta:
         model = Book
-        fields = "__all__"
+        fields = [
+            "isbn_number",
+            "title",
+            "author",
+            "publication_date",
+            "number_of_pages",
+            "cover_link",
+            "publication_language",
+        ]
+
 
 class GoogleBooksAPIForm(forms.Form):
-    q = forms.CharField(max_length=150,required=False)
+    q = forms.CharField(max_length=150, required=False)
     intitle = forms.CharField(max_length=150, required=False)
     inauthor = forms.CharField(max_length=150, required=False)
     inpublisher = forms.CharField(max_length=150, required=False)
