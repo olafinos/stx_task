@@ -25,7 +25,7 @@ SECRET_KEY = "%v+z$@z8!kb6c2rt3her8u$(b00q$4&e7$)*b+1@jcy0dh40mk"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["https://stx-task.herokuapp.com/"]
+ALLOWED_HOSTS = ["stx-task.herokuapp.com", "127.0.0.1"]
 
 
 # Application definition
