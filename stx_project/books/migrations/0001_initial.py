@@ -8,21 +8,25 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Book',
+            name="Book",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, primary_key=True, serialize=False)),
-                ('isbn_number', models.CharField(max_length=13, unique=True)),
-                ('title', models.CharField(max_length=150)),
-                ('author', models.CharField(max_length=150, null=True)),
-                ('publication_date', models.DateField(null=True)),
-                ('number_of_pages', models.IntegerField(null=True)),
-                ('cover_link', models.CharField(max_length=200, null=True)),
-                ('publication_language', models.CharField(max_length=150)),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4, primary_key=True, serialize=False
+                    ),
+                ),
+                ("isbn_number", models.CharField(max_length=13, unique=True)),
+                ("title", models.CharField(max_length=150)),
+                ("author", models.CharField(max_length=150, null=True)),
+                ("publication_date", models.DateField(null=True)),
+                ("number_of_pages", models.IntegerField(null=True)),
+                ("cover_link", models.CharField(max_length=200, null=True)),
+                ("publication_language", models.CharField(max_length=150)),
             ],
         ),
     ]

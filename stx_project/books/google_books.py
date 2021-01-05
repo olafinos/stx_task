@@ -74,6 +74,9 @@ class GoogleBooksParser:
     def _get_publication_date(self, resource: Dict) -> Union[str, None]:
         date = resource.get("publishedDate", None)
         if date:
-            date = parse(date)
-            date = str(date.date())
+            try:
+                date = parse(date)
+                date = str(date.date())
+            except ValueError:
+                date = None
         return date
