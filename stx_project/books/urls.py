@@ -1,5 +1,12 @@
-from .views import BooksList, BookDetail, EditBook, AddBook, AddBookGoogleAPI
-from django.urls import path
+from .views import (
+    BooksList,
+    BookDetail,
+    EditBook,
+    AddBook,
+    AddBookGoogleAPI,
+    BookListREST,
+)
+from django.urls import path, re_path
 
 urlpatterns = [
     path("books/", BooksList.as_view(), name="books_list"),
@@ -11,4 +18,5 @@ urlpatterns = [
         AddBookGoogleAPI.as_view(),
         name="add_books_using_api",
     ),
+    re_path("v1/books/?$", BookListREST.as_view(), name="books_list_REST"),
 ]
