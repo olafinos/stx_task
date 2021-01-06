@@ -10,7 +10,6 @@ from django.views.generic import View, ListView, DetailView, UpdateView, CreateV
 from django.db.models import Q
 from django.db import IntegrityError
 from rest_framework import viewsets
-from django_filters.rest_framework import DjangoFilterBackend
 
 
 class BooksList(ListView):
