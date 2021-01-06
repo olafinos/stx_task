@@ -3,7 +3,7 @@ from .views import (
     BookDetail,
     EditBook,
     AddBook,
-    AddBookGoogleAPI,
+    AddBooksGoogleAPI,
     BookListREST,
 )
 from django.urls import path, re_path
@@ -15,7 +15,7 @@ urlpatterns = [
     path("books/add_book", AddBook.as_view(), name="add_book"),
     path(
         "books/add_book_using_api",
-        AddBookGoogleAPI.as_view(),
+        AddBooksGoogleAPI.as_view(),
         name="add_books_using_api",
     ),
     re_path("v1/books/?$", BookListREST.as_view(), name="books_list_REST"),

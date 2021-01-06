@@ -101,7 +101,7 @@ class AddBook(CreateView):
     form_class = BookAddForm
 
 
-class AddBookGoogleAPI(View):
+class AddBooksGoogleAPI(View):
     def get(self, request: HttpRequest, format=None) -> HttpResponse:
         form = GoogleBooksAPIForm()
         return render(request, "add_books_using_api.html", {"form": form})
