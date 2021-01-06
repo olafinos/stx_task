@@ -3,6 +3,10 @@ from .models import Book
 
 
 class BookSearchForm(forms.Form):
+    """
+    Form for searching books in books_list view.
+    """
+
     title = forms.CharField(max_length=150, required=False)
     author = forms.CharField(max_length=150, required=False)
     publication_date_start = forms.DateField(required=False)
@@ -11,6 +15,10 @@ class BookSearchForm(forms.Form):
 
 
 class BookAddForm(forms.ModelForm):
+    """
+    Form for adding books in add_book view
+    """
+
     class Meta:
         model = Book
         fields = [
@@ -25,6 +33,10 @@ class BookAddForm(forms.ModelForm):
 
 
 class GoogleBooksAPIForm(forms.Form):
+    """
+    Form for adding books using GoogleBooksAPI. It includes all available field for query.
+    """
+
     q = forms.CharField(max_length=150, required=False)
     intitle = forms.CharField(max_length=150, required=False)
     inauthor = forms.CharField(max_length=150, required=False)

@@ -3,6 +3,10 @@ from rest_framework import serializers
 
 
 class BookSerializer(serializers.HyperlinkedModelSerializer):
+    """
+    Serializer for Book model.
+    """
+
     class Meta:
         model = Book
         fields = [

@@ -1,6 +1,7 @@
+from ..views import AddBooksGoogleAPI
+from ..models import Book
 from django.test import TestCase
 from django.urls import reverse
-from ..models import Book
 import json
 
 
@@ -124,3 +125,21 @@ class TestAddBooksGoogleAPI(TestCase):
         response = self.client.get(reverse("add_books_using_api"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "add_books_using_api.html")
+
+    def test_add_books_method(self):
+        books = Book.objects.all()
+        self.assertEqual(len(books), 0)
+        book = {
+            "title": "The Fellowship of the Ring",
+            "isbn_number": "0007488319",
+            "author": "J. R. R. Tolkien",
+            "publication_date": "2012-03-01",
+            "number_of_pages": 448,
+            "cover_link": "http://books.google.com/books/content?id=lqHNugAACAAJ&printsec=frontcover&img=1"
+            "&zoom=1&source=gbs_api",
+            "publication_language": "en",
+        }
+        number_of_added_books = AddBooksGoogleAPI.add_books([book])
+        self.assertEqual(number_of_added_books, 1)
+        books = Book.objects.all()
+        self.assertEqual(number_of_added_books, len(books))

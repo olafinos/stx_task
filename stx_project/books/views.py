@@ -14,12 +14,20 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 
 class BooksList(ListView):
+    """
+    View responsible for listing all books. It also allows to use search filters.
+    """
+
     model = Book
     template_name = "books_list.html"
     paginate_by = 25
     form_class = BookSearchForm
 
     def get_queryset(self):
+        """
+        Method which filters returned results.
+        :return: Returns Book objects and filters them if needed.
+        """
         form = self.form_class(self.request.GET)
         if form.is_valid():
             object_list = Book.objects.filter(
@@ -30,6 +38,11 @@ class BooksList(ListView):
 
     @staticmethod
     def _create_filter_object(form_data: Dict) -> Q:
+        """
+        Creates search query based on query parameters.
+        :param form_data: Form data
+        :return: Query object based on given parameters
+        """
         filter_object = Q(title__icontains=form_data["title"])
         filter_object &= Q(author__icontains=form_data["author"])
         filter_object &= Q(
@@ -45,10 +58,18 @@ class BooksList(ListView):
 
 
 class BookListREST(viewsets.generics.ListAPIView):
+    """
+    View responsible for listing all books in REST format. It also allows to use search filters.
+    """
+
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
     def get_queryset(self):
+        """
+        Method which filters returned results.
+        :return: Returns Book objects and filters them if needed.
+        """
         queryset = Book.objects.all()
         title = self.request.query_params.get("title", None)
         if title:
@@ -77,11 +98,19 @@ class BookListREST(viewsets.generics.ListAPIView):
 
 
 class BookDetail(DetailView):
+    """
+    View responsible for displaying Book detail.
+    """
+
     model = Book
     template_name = "books_detail.html"
 
 
 class EditBook(UpdateView):
+    """
+    View responsible for editing Book objects.
+    """
+
     model = Book
     template_name = "add_book.html"
     fields = [
@@ -96,12 +125,20 @@ class EditBook(UpdateView):
 
 
 class AddBook(CreateView):
+    """
+    View responsible for adding Book objects.
+    """
+
     model = Book
     template_name = "add_book.html"
     form_class = BookAddForm
 
 
 class AddBooksGoogleAPI(View):
+    """
+    View responsible for adding books using GoogleBooksAPI
+    """
+
     def get(self, request: HttpRequest, format=None) -> HttpResponse:
         form = GoogleBooksAPIForm()
         return render(request, "add_books_using_api.html", {"form": form})
@@ -111,20 +148,31 @@ class AddBooksGoogleAPI(View):
         if form.is_valid():
             keywords = form.cleaned_data
             books = self._get_books_from_api(keywords)
-            added_books = self._add_books(books)
+            added_books = self.add_books(books)
             messages.add_message(
                 request, messages.SUCCESS, f"Number of books added: {added_books}"
             )
         return render(request, "add_books_using_api.html", {"form": form})
 
     def _get_books_from_api(self, keywords: Dict) -> List[Dict]:
+        """
+        Downloads and parses books which was found for given keywords.
+        :param keywords: Dictionary with keywords for search query
+        :return: List with books compatible with Book model.
+        """
         downloader = GoogleBooksDownloader()
         parser = GoogleBooksParser()
         downloaded_books = downloader.get_books_using_api(keywords=keywords)
         parsed_books = parser.parse(downloaded_books)
         return parsed_books
 
-    def _add_books(self, books: List[Dict]) -> int:
+    @staticmethod
+    def add_books(books: List[Dict]) -> int:
+        """
+        Adds Book objects to database.
+        :param books: List with books compatible with Book model.
+        :return: Number of books successfully added.
+        """
         added_books = 0
         for book in books:
             try:
