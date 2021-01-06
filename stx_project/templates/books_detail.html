@@ -14,8 +14,12 @@
             <h6 class="mt-0"><strong>Publication date: </strong>{{ object.publication_date }}</h6>
             <h6 class="mt-0"><strong>Publication language: </strong>{{ object.publication_language }}</h6>
             <h6 class="mt-0"><strong>Number of pages: </strong>{{ object.number_of_pages }}</h6>
+                        {% if book.cover_link %}
             <h6 class="mt-0"><strong>Link to cover: </strong><a href={{ object.cover_link }}>{{ object.cover_link }}</a>
             </h6>
+            {% else %}
+            <h6 class="mt-0"><strong>Link to cover: </strong>{{ object.cover_link }}</a></h6>
+            {% endif %}
         </div>
     </div>
 </div>
